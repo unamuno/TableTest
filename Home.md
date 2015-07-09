@@ -1,0 +1,1 @@
+This is just a java test project for testing db connection and guy.
