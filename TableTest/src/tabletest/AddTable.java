@@ -5,6 +5,7 @@
  */
 package tabletest;
 
+import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -13,7 +14,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AddTable extends javax.swing.JFrame {
     
-    
+    boolean DataCorrect=false;
+    boolean AddFinshed=false;
     String[] textFieldInputs;
     String[] textFieldDefaultText; //Enthält die Beschreibungen der Eingabefelder, um zu prüfen, ob der Inhalt beim ersten Mal bearbeiten geläscht werden soll.
     public AddTable() {
@@ -39,11 +41,21 @@ public class AddTable extends javax.swing.JFrame {
         tfBeschreibung = new javax.swing.JTextField();
         tfVkPreis = new javax.swing.JTextField();
         tfBestand = new javax.swing.JTextField();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+                formWindowLostFocus(evt);
+            }
+        });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lHeadline.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lHeadline.setText("Artikel hinzufügen");
+        getContentPane().add(lHeadline, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
 
         btnClose.setText("Close");
         btnClose.addActionListener(new java.awt.event.ActionListener() {
@@ -51,13 +63,18 @@ public class AddTable extends javax.swing.JFrame {
                 btnCloseActionPerformed(evt);
             }
         });
+        getContentPane().add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(473, 266, -1, -1));
 
         tfEAN.setText("EAN");
         tfEAN.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 tfEANFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfEANFocusLost(evt);
+            }
         });
+        getContentPane().add(tfEAN, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 51, 500, -1));
 
         tfName.setText("Artikelname");
         tfName.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -65,6 +82,7 @@ public class AddTable extends javax.swing.JFrame {
                 tfNameFocusGained(evt);
             }
         });
+        getContentPane().add(tfName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 77, 500, -1));
 
         tfBeschreibung.setText("Artikelbeschreibung");
         tfBeschreibung.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -72,6 +90,7 @@ public class AddTable extends javax.swing.JFrame {
                 tfBeschreibungFocusGained(evt);
             }
         });
+        getContentPane().add(tfBeschreibung, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 103, 500, -1));
 
         tfVkPreis.setText("VK Preis in EUR");
         tfVkPreis.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -79,6 +98,7 @@ public class AddTable extends javax.swing.JFrame {
                 tfVkPreisFocusGained(evt);
             }
         });
+        getContentPane().add(tfVkPreis, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 129, 500, -1));
 
         tfBestand.setText("Bestand");
         tfBestand.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -86,58 +106,27 @@ public class AddTable extends javax.swing.JFrame {
                 tfBestandFocusGained(evt);
             }
         });
+        getContentPane().add(tfBestand, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 155, 500, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnClose))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lHeadline)
-                            .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfBeschreibung, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfVkPreis, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfBestand, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfEAN, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 22, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lHeadline)
-                .addGap(18, 18, 18)
-                .addComponent(tfEAN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfBeschreibung, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfVkPreis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfBestand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
-                .addComponent(btnClose)
-                .addContainerGap())
-        );
+        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        getContentPane().add(jFormattedTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 181, 143, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+        
         textFieldInputs[0]=tfEAN.getText();
         textFieldInputs[1]=tfName.getText();
         textFieldInputs[2]=tfBeschreibung.getText();
         textFieldInputs[3]=tfVkPreis.getText();
         textFieldInputs[4]=tfBestand.getText();
-        
+        tfEAN.setText(textFieldDefaultText[0]);
+        tfName.setText(textFieldDefaultText[1]);
+        tfBeschreibung.setText(textFieldDefaultText[2]);
+        tfVkPreis.setText(textFieldDefaultText[3]);
+        tfBestand.setText((textFieldDefaultText[4]));
+        AddFinshed=true;
         this.setVisible(false);
     }//GEN-LAST:event_btnCloseActionPerformed
 
@@ -171,12 +160,35 @@ public class AddTable extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tfBestandFocusGained
 
+    private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
+        
+    }//GEN-LAST:event_formWindowLostFocus
+
+    private void tfEANFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfEANFocusLost
+        try {
+            if(Integer.valueOf(tfEAN.getText())>0 
+           && Integer.valueOf(tfEAN.getText())<100000)
+            {
+                DataCorrect=true;
+                tfEAN.setBackground(Color.white);
+            }
+            else{
+                tfEAN.setBackground(Color.red);
+                DataCorrect=false;
+        }
+        } catch (Exception e) {
+            tfEAN.setBackground(Color.red);
+        }
+        
+    }//GEN-LAST:event_tfEANFocusLost
+
     /**
      * @param args the command line arguments
      */
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel lHeadline;
     private javax.swing.JTextField tfBeschreibung;
     private javax.swing.JTextField tfBestand;

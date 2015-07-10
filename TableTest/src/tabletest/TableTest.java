@@ -20,8 +20,7 @@ public class TableTest {
         AddTable add = new AddTable();
         GuiTable tab = new GuiTable();
         tab.setVisible(true);
-        DefaultTableModel model = (DefaultTableModel) tab.tbArtikelTabelle.getModel();
-        model.addRow(add.textFieldInputs);
-    }
+
+        }
     
 }

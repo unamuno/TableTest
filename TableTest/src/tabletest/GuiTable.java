@@ -34,6 +34,13 @@ public class GuiTable extends javax.swing.JFrame {
         tbArtikelTabelle = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         jButton1.setText("Add");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -82,6 +89,19 @@ public class GuiTable extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         add.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        if (add.AddFinshed) {
+            DefaultTableModel model = (DefaultTableModel) tbArtikelTabelle.getModel();
+            model.addRow(add.textFieldInputs);
+            System.out.println("Row!");
+            for (int i = 0; i < model.getColumnCount(); i++) {
+                System.out.print("|  "+model.getValueAt(0, i));
+            }
+            
+        }
+        add.AddFinshed=false;
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments
