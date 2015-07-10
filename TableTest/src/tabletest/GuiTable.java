@@ -5,6 +5,8 @@
  */
 package tabletest;
 
+import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -14,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 public class GuiTable extends javax.swing.JFrame {
 
     AddTable add;
+    private Component frame;
     
     public GuiTable() {
         this.add = new AddTable();
@@ -32,6 +35,7 @@ public class GuiTable extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbArtikelTabelle = new javax.swing.JTable();
+        Remove = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
@@ -59,6 +63,13 @@ public class GuiTable extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tbArtikelTabelle);
 
+        Remove.setText("Remove");
+        Remove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RemoveActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -67,7 +78,9 @@ public class GuiTable extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addComponent(jButton1))
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(Remove))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -77,7 +90,9 @@ public class GuiTable extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(Remove))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
                 .addContainerGap())
@@ -103,12 +118,27 @@ public class GuiTable extends javax.swing.JFrame {
         add.AddFinshed=false;
     }//GEN-LAST:event_formWindowGainedFocus
 
+    private void RemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveActionPerformed
+        try {
+            DefaultTableModel model = (DefaultTableModel) tbArtikelTabelle.getModel();
+        
+        model.removeRow(tbArtikelTabelle.getSelectedRow());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(frame,
+            "Please choose a row first.",
+            "No Row choosen",
+            JOptionPane.WARNING_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_RemoveActionPerformed
+
     /**
      * @param args the command line arguments
      */
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Remove;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTable tbArtikelTabelle;
